@@ -11,8 +11,6 @@ body {
     animation: orbite-slide 3s linear infinite;
    
 }
-
-
 .moon {
     position: absolute;
     left: calc(50% - 40px) ;
