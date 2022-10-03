@@ -1,0 +1,115 @@
+:root{
+    --bg-color-l: #dcdcdc; /*Default BG (Light)*/
+    --tx-color-l: #0e0e0e; /*Default TX (Light)*/
+    --bg-color-d: #424242; /*Dark GB*/
+    --tx-color-d: #eeeeee; /*Dark TX*/
+    --bg-colorT-l: #424242; /*Default tooltip BG (Light)*/
+    --tx-colorT-l: #eeeeee; /*Default tooltip TX (Light)*/
+    --bg-colorT-d: #dcdcdc; /*Dark tooltip GB*/
+    --tx-colorT-d: #0e0e0e; /*Dark tooltip TX*/
+    --shadow-l: 0 0 10px 0 rgba(58, 58, 58, 0.5); /*BoxShadow Light*/
+    --shadow-d: 0 0 10px 0 rgba(211, 211, 211, 0.5); /*BoxShadow Dark*/
+    --font-weight: bold;
+}
+/*Variables for the direction of the tooltip arrow*/
+.box-1{
+    --tooltip-pos-down: var(--bg-colorT) transparent transparent transparent; /*Arrow Down*/
+    --tooltip-pos-left: transparent var(--bg-colorT) transparent transparent; /*Arrow Left*/
+    --tooltip-pos-up: transparent transparent var(--bg-colorT) transparent; /*Arrow Up*/
+    --tooltip-pos-right: transparent transparent transparent var(--bg-colorT); /*Arrow Right*/
+}
+/*Light mode set*/
+.Light:checked~.box-1{
+    --bg-color: var(--bg-color-l);
+    --tx-color: var(--tx-color-l);
+    --bg-colorT: var(--bg-colorT-l);
+    --tx-colorT: var(--tx-colorT-l);
+    --shadow: var(--shadow-l);
+}
+/*Dark mode set*/
+.Dark:checked~.box-1{
+    --bg-color:var(--bg-color-d);
+    --tx-color: var(--tx-color-d);
+    --bg-colorT: var(--bg-colorT-d);
+    --tx-colorT: var(--tx-colorT-d);
+    --shadow: var(--shadow-d);
+}
+/*Checks to see where we want to see the tooltip,
+also setting up all the variables*/
+.Up:checked~.box-1{
+    --tooltip-pos: var(--tooltip-pos-down);
+    --inset-t: auto auto 125% 50%;
+    --inset-a: 100% auto auto 50%;
+    --margin-a: auto auto auto -5px;
+    --margin-t: auto auto auto -60px;
+}
+.Down:checked~.box-1{
+    --tooltip-pos: var(--tooltip-pos-up);
+    --inset-t: 150% auto auto 50%;
+    --inset-a: auto auto 100% 50%;
+    --margin-a: auto auto auto -5px;
+    --margin-t: auto auto auto -60px;
+}
+.Right:checked~.box-1{
+    --tooltip-pos: var(--tooltip-pos-left);
+    --inset-t: -5px auto auto 110%;
+    --inset-a: 50% 100% auto auto;
+    --margin-a: -5px auto auto auto;
+    --margin-t: auto auto auto auto;
+}
+.Left:checked~.box-1{
+    --tooltip-pos: var(--tooltip-pos-right);
+    --inset-t: -5px 110% auto auto;
+    --inset-a: 50% auto auto 100%;
+    --margin-a: -5px auto auto auto;
+    --margin-t: auto auto auto auto;
+}
+/*Config of the big container*/
+.box-1 {
+    font-weight: var(--font-weight);
+    background-color: var(--bg-color);
+    color: var(--tx-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 20em;
+    height: 20em;
+}
+/*Position of the text*/
+.tooltip {
+    position: relative;
+}
+/*Config of the tooltip*/
+.tooltipText {
+    visibility: hidden;
+    width: 120px;
+    background-color: var(--bg-colorT);
+    color: var(--tx-colorT);
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    inset: var(--inset-t);
+    margin: var(--margin-t);
+    opacity: 0;
+    transition: opacity 0.7s;
+}
+/*Adding the little arrow*/
+.tooltip .tooltipText::after {
+    content: "";
+    position: absolute;
+    inset: var(--inset-a);
+    margin: var(--margin-a);
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--tooltip-pos);
+}
+/*Showing the tooltip while Hoovering*/
+.tooltip:hover .tooltipText {
+    visibility: visible;
+    opacity: 1;
+    box-shadow: var(--shadow);
+}
